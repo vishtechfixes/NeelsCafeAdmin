@@ -1,12 +1,9 @@
-
-
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-  <title>Admin Panel — Kathi Roll Hub</title>
+  <title>Admin Panel — Neel's Cafe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/admin.css"/>
@@ -80,9 +77,9 @@
 <!-- ══ LOGIN GATE ══════════════════════════════════════════ -->
 <div class="gate-overlay" id="gate">
   <div class="gate-card">
-    <div class="gate-logo">🌯</div>
+    <div class="gate-logo">👨‍🍳</div>
     <div class="gate-title">Admin Panel</div>
-    <div class="gate-sub">Kathi Roll Hub — Owner Access</div>
+    <div class="gate-sub">Neel's Cafe — Owner Access</div>
 
     <label class="gate-label" for="gate-email">Email</label>
     <input
@@ -126,10 +123,10 @@
 
     <!-- Brand -->
     <div class="sb-brand">
-      <div class="sb-brand-icon">🌯</div>
+      <div class="sb-brand-icon">👨‍🍳</div>
       <div class="sb-brand-text">
-        <div class="sb-brand-name">KATHI ROLL HUB</div>
-        <div class="sb-brand-sub" id="sb-location">Murlipura, Jaipur</div>
+        <div class="sb-brand-name">NEEL'S CAFE</div>
+        <div class="sb-brand-sub" id="sb-location">Jaipur</div>
       </div>
     </div>
 
@@ -399,10 +396,10 @@
     }
   });
 
-  const PASS_KEY = 'krh_admin_pass';
+  const PASS_KEY = 'nc_admin_pass';
 
   function getPass() {
-    return localStorage.getItem(PASS_KEY) || 'admin123';
+    return localStorage.getItem(PASS_KEY) || 'nc2025';
   }
 
   window.doLogin = async function() {
@@ -931,7 +928,7 @@
     const b  = ctLastBill;
     const sh = JSON.parse(localStorage.getItem(LS.shop) || '{}');
     const msg = encodeURIComponent(
-      `🧾 *${sh.name || 'Kathi Roll Hub'} — Bill Receipt*\n` +
+      `🧾 *${sh.name || "Neel's Cafe"} — Bill Receipt*\n` +
       `────────────────\n` +
       `👤 ${b.name}\n📱 ${b.mobile}\n` +
       `────────────────\n` +
@@ -956,7 +953,7 @@
         .c{text-align:center} .b{font-weight:700} hr{border:none;border-top:1px dashed #000;margin:8px 0}
         .row{display:flex;justify-content:space-between}
       </style></head><body>
-      <div class="c b" style="font-size:15px">${sh.name || 'Kathi Roll Hub'}</div>
+      <div class="c b" style="font-size:15px">${sh.name || "Neel's Cafe"}</div>
       <div class="c">${sh.loc || ''}</div>
       <hr/>
       <div class="row"><span>Customer</span><span class="b">${b.name}</span></div>
@@ -987,3 +984,5 @@
 </script>
 </body>
 </html>
+
+
