@@ -39,7 +39,7 @@ async function initFirebase() {
 }
 
 // Firestore document paths
-const SHOP_ID   = 'kathi-roll-hub';   // shared/constants.js se match karo
+const SHOP_ID   = 'neels-cafe';   // shared/constants.js se match karo
 const COLL_SETT = 'settings';
 const DOC_CFG   = 'config';
 const COLL_SHOP = 'shop';
@@ -106,7 +106,7 @@ function fillInputs(sh, s) {
   sv('o-disc',  s.defaultWelcomeDisc    || 10);
   sv('o-ppv',   s.defaultPerVisitPts    || 5);
   sv('o-goal',  s.defaultVisitThreshold || 5);
-  sv('o-reward',s.defaultVisitReward    || 'FREE Roll ya Momos');
+  sv('o-reward',s.defaultVisitReward    || 'FREE Ice Cream ya Cold Coffee');
   sv('o-wpts',  s.defaultWelcomePts     || 200);
   sv('o-ref',  (s.defaultRefSteps       || [50, 120, 200]).join(','));
 
@@ -172,7 +172,7 @@ window.saveAll = async function () {
       defaultWelcomeDisc:    parseInt(gv('o-disc'))   || 10,
       defaultPerVisitPts:    parseInt(gv('o-ppv'))    || 5,
       defaultVisitThreshold: parseInt(gv('o-goal'))   || 5,
-      defaultVisitReward:    gv('o-reward').trim()    || 'FREE Roll ya Momos',
+      defaultVisitReward:    gv('o-reward').trim()    || 'FREE Ice Cream ya Cold Coffee',
       defaultWelcomePts:     parseInt(gv('o-wpts'))   || 200,
       defaultRefSteps:       refSteps.length ? refSteps : [50, 120, 200],
 
@@ -329,7 +329,7 @@ window.toggleEye = function (id) {
 // ============================================================
 window.delBills = function () {
   if (!confirm('⚠️ Sab bills permanently delete ho jaayenge!')) return;
-  localStorage.removeItem('krh_bills');
+  localStorage.removeItem('nc_bills');
   // Firebase: await deleteDoc / batch delete (add later)
   showToast('✅ Sab bills delete ho gaye');
 };
@@ -337,8 +337,8 @@ window.delBills = function () {
 window.delAll = function () {
   if (!confirm('⚠️ SACH MEIN? Customers, bills, menu, settings — sab delete!')) return;
   if (!confirm('LAST CHANCE — permanent delete!')) return;
-  ['krh_users','krh_bills','krh_menu','krh_settings',
-   'krh_shop','krh_feedback','krh_pts_history'].forEach(k =>
+  ['nc_users','nc_bills','nc_menu','nc_settings',
+   'nc_shop','nc_feedback','nc_pts_history'].forEach(k =>
     localStorage.removeItem(k)
   );
   showToast('💀 Reset ho gaya. Refresh ho raha hai...');
@@ -505,3 +505,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     el(id)?.addEventListener('change', updatePreview);
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
