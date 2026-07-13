@@ -7,108 +7,124 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: system-ui, sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
-    min-height: 100vh;
-    padding: 24px 16px;
+    background: #0f172a; color: #e2e8f0;
+    min-height: 100vh; padding: 24px 16px;
   }
-  .wrap { max-width: 700px; margin: 0 auto; }
-  h1 { font-size: 22px; font-weight: 800; color: #E8A020; margin-bottom: 4px; }
-  .sub { font-size: 13px; color: #64748b; margin-bottom: 24px; }
+  .wrap { max-width: 600px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 800; color: #E8A020; margin-bottom: 4px; }
+  .sub { font-size: 13px; color: #64748b; margin-bottom: 20px; }
   .card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 16px;
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 14px; padding: 20px; margin-bottom: 16px;
   }
-  .card h3 { font-size: 14px; font-weight: 700; color: #E8A020; margin-bottom: 12px; }
-  .item-row {
-    display: flex; justify-content: space-between;
-    align-items: center; padding: 6px 0;
-    border-bottom: 1px solid #1e293b;
-    font-size: 13px;
+  .card h3 { font-size: 13px; font-weight: 700; color: #E8A020; margin-bottom: 12px; }
+  .inp {
+    width: 100%; padding: 12px 14px;
+    background: #0f172a; border: 1.5px solid #334155;
+    border-radius: 8px; color: #e2e8f0;
+    font-size: 14px; outline: none; margin-bottom: 10px;
   }
-  .item-name { color: #e2e8f0; }
-  .item-price { color: #94a3b8; }
+  .inp:focus { border-color: #E8A020; }
   .btn {
-    width: 100%; padding: 16px;
+    width: 100%; padding: 14px;
     background: linear-gradient(135deg, #E8A020, #C07A10);
-    color: #fff; font-size: 16px; font-weight: 800;
-    border: none; border-radius: 12px;
-    cursor: pointer; margin-top: 8px;
-    transition: opacity .2s;
+    color: #fff; font-size: 15px; font-weight: 800;
+    border: none; border-radius: 10px;
+    cursor: pointer; transition: opacity .2s;
   }
   .btn:hover { opacity: .9; }
   .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .err {
+    color: #ef4444; background: rgba(239,68,68,.1);
+    border-radius: 8px; padding: 10px 12px;
+    font-size: 13px; margin-top: 8px; display: none;
+  }
+  .ok {
+    color: #22c55e; background: rgba(34,197,94,.1);
+    border-radius: 8px; padding: 10px 12px;
+    font-size: 13px; margin-top: 8px; display: none;
+  }
   .log {
     background: #0f172a; border: 1px solid #334155;
     border-radius: 10px; padding: 14px;
     font-size: 12px; font-family: monospace;
-    max-height: 300px; overflow-y: auto;
-    margin-top: 16px; display: none;
+    max-height: 280px; overflow-y: auto;
+    margin-top: 12px; display: none;
   }
-  .log-line { margin-bottom: 4px; }
-  .log-line.ok  { color: #22c55e; }
-  .log-line.err { color: #ef4444; }
-  .log-line.inf { color: #94a3b8; }
+  .l-ok  { color: #22c55e; margin-bottom: 2px; }
+  .l-err { color: #ef4444; margin-bottom: 2px; }
+  .l-inf { color: #94a3b8; margin-bottom: 2px; }
   .stats {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px; margin-bottom: 20px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-bottom: 16px;
   }
-  .stat-card {
-    background: #1e293b; border: 1px solid #334155;
-    border-radius: 10px; padding: 14px; text-align: center;
+  .stat {
+    background: #0f172a; border: 1px solid #334155;
+    border-radius: 8px; padding: 12px; text-align: center;
   }
-  .stat-num { font-size: 28px; font-weight: 800; color: #E8A020; }
-  .stat-lbl { font-size: 11px; color: #64748b; margin-top: 2px; }
-  .done-banner {
+  .stat-n { font-size: 24px; font-weight: 800; color: #E8A020; }
+  .stat-l { font-size: 11px; color: #64748b; }
+  #seed-section { display: none; }
+  .done {
     background: #052e16; border: 1px solid #16a34a;
     border-radius: 12px; padding: 16px; text-align: center;
-    display: none; margin-top: 16px;
+    display: none; margin-top: 12px;
   }
-  .done-banner h2 { color: #22c55e; font-size: 18px; margin-bottom: 6px; }
-  .done-banner p  { color: #86efac; font-size: 13px; }
+  .done h2 { color: #22c55e; margin-bottom: 6px; }
+  .done p  { color: #86efac; font-size: 13px; }
+  .user-info {
+    display: none;
+    background: #052e16; border: 1px solid #16a34a;
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 13px; color: #86efac; margin-bottom: 16px;
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <h1>👨‍🍳 Neel's Cafe — Menu Seed</h1>
-  <p class="sub">Ek click mein poora menu Firebase mein add ho jaayega</p>
+  <p class="sub">Pehle admin login karo, phir menu add hoga</p>
 
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-num" id="total-count">58</div>
-      <div class="stat-lbl">Total Items</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="cat-count">15</div>
-      <div class="stat-lbl">Categories</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num" id="done-count">0</div>
-      <div class="stat-lbl">Added</div>
-    </div>
+  <!-- LOGIN SECTION -->
+  <div class="card" id="login-section">
+    <h3>🔐 Admin Login</h3>
+    <input class="inp" type="email" id="email"
+      placeholder="vishtechsoftwareservices@gmail.com"
+      value="vishtechsoftwareservices@gmail.com"/>
+    <input class="inp" type="password" id="password"
+      placeholder="Password"/>
+    <button class="btn" onclick="doLogin()">Login Karo</button>
+    <div class="err" id="login-err"></div>
+    <div class="ok"  id="login-ok"></div>
   </div>
 
-  <!-- Preview cards -->
-  <div id="preview"></div>
+  <!-- SEED SECTION -->
+  <div id="seed-section">
 
-  <!-- Seed button -->
-  <button class="btn" id="seed-btn" onclick="startSeed()">
-    🚀 Menu Firebase Mein Add Karo
-  </button>
+    <div class="user-info" id="user-info"></div>
 
-  <!-- Log -->
-  <div class="log" id="log"></div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-n">78</div>
+        <div class="stat-l">Total Items</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" id="done-count">0</div>
+        <div class="stat-l">Added</div>
+      </div>
+    </div>
 
-  <!-- Done -->
-  <div class="done-banner" id="done-banner">
-    <h2>✅ Menu Add Ho Gaya!</h2>
-    <p>Saare items Firebase mein save ho gaye.<br/>
-    Ab Admin Panel → Menu mein dekho.</p>
+    <button class="btn" id="seed-btn" onclick="startSeed()">
+      🚀 Poora Menu Add Karo
+    </button>
+
+    <div class="log" id="log"></div>
+    <div class="done" id="done-banner">
+      <h2>✅ Menu Add Ho Gaya!</h2>
+      <p>78 items Firebase mein save ho gaye.<br/>
+      Admin Panel → Menu mein dekho.</p>
+    </div>
   </div>
 
 </div>
@@ -119,8 +135,11 @@ import { initializeApp, getApps, getApp }
 import {
   getFirestore, collection, doc, setDoc, getDocs, deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+  getAuth, signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const FIREBASE_CONFIG = {
+const CFG = {
   apiKey:            "AIzaSyCIsYsizR3Cv_xXrHFyhW2dP0J_SwR91Pc",
   authDomain:        "neels-cafe.firebaseapp.com",
   projectId:         "neels-cafe",
@@ -129,202 +148,193 @@ const FIREBASE_CONFIG = {
   appId:             "1:327739901498:web:0dd6e83a8ea29c8a31d703"
 };
 
-const app = getApps().length ? getApp() : initializeApp(FIREBASE_CONFIG);
-const db  = getFirestore(app);
+const app  = getApps().length ? getApp() : initializeApp(CFG);
+const db   = getFirestore(app);
+const auth = getAuth(app);
 
-// ── FULL MENU FROM IMAGES ──────────────────────────────────
+// ── MENU DATA ──────────────────────────────────────────────
 const MENU = [
   // ICE CREAM
-  { name:"Vanilla Ice Cream",       category:"Ice Cream",  price:30,  veg:true },
-  { name:"Strawberry Ice Cream",    category:"Ice Cream",  price:30,  veg:true },
-  { name:"Butterscotch Ice Cream",  category:"Ice Cream",  price:40,  veg:true },
-  { name:"Chocolate Ice Cream",     category:"Ice Cream",  price:40,  veg:true },
-  { name:"Mango Ice Cream",         category:"Ice Cream",  price:40,  veg:true },
-  { name:"Pineapple Ice Cream",     category:"Ice Cream",  price:40,  veg:true },
-  { name:"Kesar Pista Ice Cream",   category:"Ice Cream",  price:40,  veg:true },
-  { name:"Raj Bhog Ice Cream",      category:"Ice Cream",  price:50,  veg:true },
-
+  {name:"Vanilla Ice Cream",      cat:"Ice Cream",  price:30},
+  {name:"Strawberry Ice Cream",   cat:"Ice Cream",  price:30},
+  {name:"Butterscotch Ice Cream", cat:"Ice Cream",  price:40},
+  {name:"Chocolate Ice Cream",    cat:"Ice Cream",  price:40},
+  {name:"Mango Ice Cream",        cat:"Ice Cream",  price:40},
+  {name:"Pineapple Ice Cream",    cat:"Ice Cream",  price:40},
+  {name:"Kesar Pista Ice Cream",  cat:"Ice Cream",  price:40},
+  {name:"Raj Bhog Ice Cream",     cat:"Ice Cream",  price:50},
   // PATTIES
-  { name:"Aloo Patties",            category:"Patties",    price:30,  veg:true },
-  { name:"Mayonnaise Patties",      category:"Patties",    price:40,  veg:true },
-  { name:"Cheese Patties",          category:"Patties",    price:50,  veg:true },
-  { name:"Tandoori Patties",        category:"Patties",    price:50,  veg:true },
-  { name:"Paneer Patties",          category:"Patties",    price:40,  veg:true },
-  { name:"Paneer Masala Patties",   category:"Patties",    price:50,  veg:true },
-  { name:"Paneer Cheese Patties",   category:"Patties",    price:70,  veg:true },
-
-  // CHAAT ITEMS
-  { name:"Bhel Puri",               category:"Chaat Items",price:50,  veg:true },
-  { name:"Sev Puri",                category:"Chaat Items",price:70,  veg:true },
-  { name:"Papdi Chaat",             category:"Chaat Items",price:70,  veg:true },
-  { name:"Raj Kachori",             category:"Chaat Items",price:80,  veg:true },
-
+  {name:"Aloo Patties",           cat:"Patties",    price:30},
+  {name:"Mayonnaise Patties",     cat:"Patties",    price:40},
+  {name:"Cheese Patties",         cat:"Patties",    price:50},
+  {name:"Tandoori Patties",       cat:"Patties",    price:50},
+  {name:"Paneer Patties",         cat:"Patties",    price:40},
+  {name:"Paneer Masala Patties",  cat:"Patties",    price:50},
+  {name:"Paneer Cheese Patties",  cat:"Patties",    price:70},
+  // CHAAT
+  {name:"Bhel Puri",              cat:"Chaat Items",price:50},
+  {name:"Sev Puri",               cat:"Chaat Items",price:70},
+  {name:"Papdi Chaat",            cat:"Chaat Items",price:70},
+  {name:"Raj Kachori",            cat:"Chaat Items",price:80},
   // PASTA
-  { name:"Red Pasta",               category:"Pasta",      price:100, veg:true },
-  { name:"White Pasta",             category:"Pasta",      price:120, veg:true },
-  { name:"Mix Pasta",               category:"Pasta",      price:140, veg:true },
-
+  {name:"Red Pasta",              cat:"Pasta",      price:100},
+  {name:"White Pasta",            cat:"Pasta",      price:120},
+  {name:"Mix Pasta",              cat:"Pasta",      price:140},
   // HOT DRINKS
-  { name:"Chai",                    category:"Hot Drinks", price:20,  veg:true },
-  { name:"Special Chai",            category:"Hot Drinks", price:25,  veg:true },
-  { name:"Kulhad Chai",             category:"Hot Drinks", price:30,  veg:true },
-  { name:"Hot Coffee",              category:"Hot Drinks", price:50,  veg:true },
-
+  {name:"Chai",                   cat:"Hot Drinks", price:20},
+  {name:"Special Chai",           cat:"Hot Drinks", price:25},
+  {name:"Kulhad Chai",            cat:"Hot Drinks", price:30},
+  {name:"Hot Coffee",             cat:"Hot Drinks", price:50},
   // PIZZA
-  { name:"OTC Pizza",               category:"Pizza",      price:120, veg:true },
-  { name:"Cheese Pizza",            category:"Pizza",      price:150, veg:true },
-  { name:"Double Cheese Pizza",     category:"Pizza",      price:200, veg:true },
-  { name:"Paneer Stuff Pizza",      category:"Pizza",      price:250, veg:true },
-  { name:"Onion Corn Pizza",        category:"Pizza",      price:270, veg:true },
-
+  {name:"OTC Pizza",              cat:"Pizza",      price:120},
+  {name:"Cheese Pizza",           cat:"Pizza",      price:150},
+  {name:"Double Cheese Pizza",    cat:"Pizza",      price:200},
+  {name:"Paneer Stuff Pizza",     cat:"Pizza",      price:250},
+  {name:"Onion Corn Pizza",       cat:"Pizza",      price:270},
   // BURGER
-  { name:"Aloo Tikki Burger",       category:"Burger",     price:50,  veg:true },
-  { name:"Veg Burger",              category:"Burger",     price:60,  veg:true },
-  { name:"Cheese Burger",           category:"Burger",     price:70,  veg:true },
-  { name:"Tandoori Burger",         category:"Burger",     price:70,  veg:true },
-  { name:"Paneer Burger",           category:"Burger",     price:80,  veg:true },
-
+  {name:"Aloo Tikki Burger",      cat:"Burger",     price:50},
+  {name:"Veg Burger",             cat:"Burger",     price:60},
+  {name:"Cheese Burger",          cat:"Burger",     price:70},
+  {name:"Tandoori Burger",        cat:"Burger",     price:70},
+  {name:"Paneer Burger",          cat:"Burger",     price:80},
   // SANDWICH
-  { name:"Veg Grill Sandwich",      category:"Sandwich",   price:50,  veg:true },
-  { name:"Mayonnaise Grill",        category:"Sandwich",   price:60,  veg:true },
-  { name:"Cheese Grill",            category:"Sandwich",   price:70,  veg:true },
-  { name:"Tandoori Grill",          category:"Sandwich",   price:80,  veg:true },
-  { name:"Paneer Grill",            category:"Sandwich",   price:80,  veg:true },
-  { name:"Jumbo Cheese Grill",      category:"Sandwich",   price:100, veg:true },
-
+  {name:"Veg Grill Sandwich",     cat:"Sandwich",   price:50},
+  {name:"Mayonnaise Grill",       cat:"Sandwich",   price:60},
+  {name:"Cheese Grill",           cat:"Sandwich",   price:70},
+  {name:"Tandoori Grill",         cat:"Sandwich",   price:80},
+  {name:"Paneer Grill",           cat:"Sandwich",   price:80},
+  {name:"Jumbo Cheese Grill",     cat:"Sandwich",   price:100},
   // MOMOS
-  { name:"Steam Momos",             category:"Momos",      price:60,  veg:true },
-  { name:"Fried Momos",             category:"Momos",      price:70,  veg:true },
-
+  {name:"Steam Momos",            cat:"Momos",      price:60},
+  {name:"Fried Momos",            cat:"Momos",      price:70},
   // MEGGIE
-  { name:"Veg Maggi",               category:"Meggie",     price:70,  veg:true },
-  { name:"Masala Maggi",            category:"Meggie",     price:80,  veg:true },
-  { name:"Tandoori Maggi",          category:"Meggie",     price:80,  veg:true },
-  { name:"Cheese Maggi",            category:"Meggie",     price:100, veg:true },
-  { name:"Paneer Maggi",            category:"Meggie",     price:100, veg:true },
-
+  {name:"Veg Maggi",              cat:"Meggie",     price:70},
+  {name:"Masala Maggi",           cat:"Meggie",     price:80},
+  {name:"Tandoori Maggi",         cat:"Meggie",     price:80},
+  {name:"Cheese Maggi",           cat:"Meggie",     price:100},
+  {name:"Paneer Maggi",           cat:"Meggie",     price:100},
   // SHAKE
-  { name:"Papaya Shake",            category:"Shake",      price:70,  veg:true },
-  { name:"Banana Shake",            category:"Shake",      price:60,  veg:true },
-  { name:"Vanilla Shake",           category:"Shake",      price:80,  veg:true },
-  { name:"Strawberry Shake",        category:"Shake",      price:80,  veg:true },
-  { name:"Pineapple Shake",         category:"Shake",      price:80,  veg:true },
-  { name:"Mango Shake",             category:"Shake",      price:80,  veg:true },
-  { name:"Butterscotch Shake",      category:"Shake",      price:80,  veg:true },
-  { name:"Chocolate Shake",         category:"Shake",      price:100, veg:true },
-  { name:"Kesar Pista Shake",       category:"Shake",      price:100, veg:true },
-  { name:"Badam Shake",             category:"Shake",      price:100, veg:true },
-  { name:"Oreo Shake",              category:"Shake",      price:100, veg:true },
-  { name:"Kitkat Shake",            category:"Shake",      price:100, veg:true },
-
+  {name:"Papaya Shake",           cat:"Shake",      price:70},
+  {name:"Banana Shake",           cat:"Shake",      price:60},
+  {name:"Vanilla Shake",          cat:"Shake",      price:80},
+  {name:"Strawberry Shake",       cat:"Shake",      price:80},
+  {name:"Pineapple Shake",        cat:"Shake",      price:80},
+  {name:"Mango Shake",            cat:"Shake",      price:80},
+  {name:"Butterscotch Shake",     cat:"Shake",      price:80},
+  {name:"Chocolate Shake",        cat:"Shake",      price:100},
+  {name:"Kesar Pista Shake",      cat:"Shake",      price:100},
+  {name:"Badam Shake",            cat:"Shake",      price:100},
+  {name:"Oreo Shake",             cat:"Shake",      price:100},
+  {name:"Kitkat Shake",           cat:"Shake",      price:100},
   // COFFEE
-  { name:"Cold Coffee",             category:"Coffee",     price:80,  veg:true },
-  { name:"Spl Cold Coffee (Chocos)",category:"Coffee",     price:120, veg:true },
-
+  {name:"Cold Coffee",            cat:"Coffee",     price:80},
+  {name:"Spl Cold Coffee Chocos", cat:"Coffee",     price:120},
   // FAST FOOD
-  { name:"Paneer Hot Dog",          category:"Fast Food",  price:70,  veg:true },
-  { name:"French Fries",            category:"Fast Food",  price:80,  veg:true },
-  { name:"French Fries Peri Peri",  category:"Fast Food",  price:90,  veg:true },
-  { name:"Pav Bhaji",               category:"Fast Food",  price:100, veg:true },
-  { name:"Veg Roll",                category:"Fast Food",  price:70,  veg:true },
-
+  {name:"Paneer Hot Dog",         cat:"Fast Food",  price:70},
+  {name:"French Fries",           cat:"Fast Food",  price:80},
+  {name:"French Fries Peri Peri", cat:"Fast Food",  price:90},
+  {name:"Pav Bhaji",              cat:"Fast Food",  price:100},
+  {name:"Veg Roll",               cat:"Fast Food",  price:70},
   // CAKE
-  { name:"Cake",                    category:"Cake",       price:350, veg:true },
-  { name:"Pastry Dark Chocolate",   category:"Cake",       price:70,  veg:true },
-  { name:"Cream Roll",              category:"Cake",       price:30,  veg:true },
-
+  {name:"Cake",                   cat:"Cake",       price:350},
+  {name:"Pastry Dark Chocolate",  cat:"Cake",       price:70},
+  {name:"Cream Roll",             cat:"Cake",       price:30},
   // COMBOS
-  { name:"2 Cheese Burger + 2 Cold Coffee",   category:"Combos", price:280, veg:true },
-  { name:"1 Cheese Pizza + 1 Cold Coffee",    category:"Combos", price:200, veg:true },
-  { name:"2 Cheese Grill + 2 Cold Coffee",    category:"Combos", price:280, veg:true },
-  { name:"1 Double Cheese Pizza + 1 Cold Coffee", category:"Combos", price:280, veg:true },
-  { name:"Family: 2 Cheese Pizza + 4 Cold Coffee", category:"Combos", price:550, veg:true },
-  { name:"Family: 4 Cheese Grill + 4 Cold Coffee", category:"Combos", price:550, veg:true },
-  { name:"Birthday Special Combo",            category:"Combos", price:1000, veg:true },
+  {name:"2 Cheese Burger + 2 Cold Coffee",          cat:"Combos", price:280},
+  {name:"1 Cheese Pizza + 1 Cold Coffee",           cat:"Combos", price:200},
+  {name:"2 Cheese Grill + 2 Cold Coffee",           cat:"Combos", price:280},
+  {name:"1 Double Cheese Pizza + 1 Cold Coffee",    cat:"Combos", price:280},
+  {name:"Family: 2 Cheese Pizza + 4 Cold Coffee",   cat:"Combos", price:550},
+  {name:"Family: 4 Cheese Grill + 4 Cold Coffee",   cat:"Combos", price:550},
+  {name:"Birthday Special Combo",                   cat:"Combos", price:1000},
 ];
 
-// ── Render preview ─────────────────────────────────────────
-const cats = {};
-MENU.forEach(item => {
-  if (!cats[item.category]) cats[item.category] = [];
-  cats[item.category].push(item);
-});
-
-document.getElementById('total-count').textContent = MENU.length;
-document.getElementById('cat-count').textContent   = Object.keys(cats).length;
-
-const preview = document.getElementById('preview');
-Object.entries(cats).forEach(([cat, items]) => {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `<h3>${cat} (${items.length} items)</h3>` +
-    items.map(it =>
-      `<div class="item-row">
-        <span class="item-name">${it.veg ? '🟢' : '🔴'} ${it.name}</span>
-        <span class="item-price">₹${it.price}</span>
-      </div>`
-    ).join('');
-  preview.appendChild(card);
-});
-
-// ── Seed function ──────────────────────────────────────────
-let doneCount = 0;
-
-function addLog(msg, type='inf') {
-  const log = document.getElementById('log');
-  log.style.display = 'block';
-  const line = document.createElement('div');
-  line.className = `log-line ${type}`;
-  line.textContent = msg;
-  log.appendChild(line);
-  log.scrollTop = log.scrollHeight;
+function log(msg, type='inf') {
+  const el = document.getElementById('log');
+  el.style.display = 'block';
+  const d = document.createElement('div');
+  d.className = `l-${type}`;
+  d.textContent = msg;
+  el.appendChild(d);
+  el.scrollTop = el.scrollHeight;
 }
 
-window.startSeed = async function() {
-  const btn = document.getElementById('seed-btn');
-  btn.disabled = true;
-  btn.textContent = '⏳ Adding...';
-  doneCount = 0;
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg; el.style.display = 'block';
+}
 
-  addLog('Starting menu seed...', 'inf');
+// ── LOGIN ──────────────────────────────────────────────────
+window.doLogin = async function() {
+  const email = document.getElementById('email').value.trim();
+  const pass  = document.getElementById('password').value.trim();
+  const errEl = document.getElementById('login-err');
+  const okEl  = document.getElementById('login-ok');
+  errEl.style.display = 'none';
+  okEl.style.display  = 'none';
+
+  if (!email || !pass) {
+    showErr('login-err', 'Email aur password dono daalo!');
+    return;
+  }
 
   try {
-    // Delete existing menu first
-    addLog('Purana menu clear kar raha hoon...', 'inf');
-    const existing = await getDocs(collection(db, 'menu'));
-    for (const d of existing.docs) {
-      await deleteDoc(d.ref);
-    }
-    addLog(`${existing.size} purane items delete kiye`, 'inf');
+    const cred = await signInWithEmailAndPassword(auth, email, pass);
+    okEl.textContent = `✅ Login successful: ${cred.user.email}`;
+    okEl.style.display = 'block';
 
-    // Add all items
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('seed-section').style.display  = 'block';
+    const info = document.getElementById('user-info');
+    info.textContent = `✅ Logged in: ${cred.user.email}`;
+    info.style.display = 'block';
+
+  } catch(e) {
+    let msg = 'Login fail hua.';
+    if (e.code === 'auth/wrong-password')   msg = '❌ Galat password!';
+    if (e.code === 'auth/user-not-found')   msg = '❌ Email registered nahi hai!';
+    if (e.code === 'auth/invalid-email')    msg = '❌ Email format galat hai!';
+    if (e.code === 'auth/invalid-credential') msg = '❌ Email ya password galat hai!';
+    showErr('login-err', msg);
+  }
+};
+
+// ── SEED ───────────────────────────────────────────────────
+window.startSeed = async function() {
+  const btn = document.getElementById('seed-btn');
+  btn.disabled = true; btn.textContent = '⏳ Adding...';
+
+  try {
+    log('Purana menu clear kar raha hoon...', 'inf');
+    const snap = await getDocs(collection(db, 'menu'));
+    for (const d of snap.docs) await deleteDoc(d.ref);
+    log(`${snap.size} purane items delete kiye`, 'inf');
+
+    let done = 0;
     for (const item of MENU) {
-      const id = item.name
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '');
+      const id = item.name.toLowerCase()
+        .replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 
-      await setDoc(doc(db, 'menu', id), {
+      await setDoc(doc(db,'menu',id), {
         name:      item.name,
-        category:  item.category,
+        category:  item.cat,
         price:     item.price,
-        veg:       item.veg,
+        veg:       true,
         available: true,
         addedAt:   new Date().toISOString(),
       });
 
-      doneCount++;
-      document.getElementById('done-count').textContent = doneCount;
-      addLog(`✅ ${item.name} — ₹${item.price}`, 'ok');
+      done++;
+      document.getElementById('done-count').textContent = done;
+      log(`✅ ${item.name} — ₹${item.price}`, 'ok');
     }
 
-    addLog(`\n🎉 Done! ${doneCount} items added!`, 'ok');
+    log(`\n🎉 ${done} items added!`, 'ok');
     document.getElementById('done-banner').style.display = 'block';
-    btn.textContent = '✅ Menu Add Ho Gaya!';
+    btn.textContent = '✅ Done!';
 
   } catch(e) {
-    addLog(`❌ Error: ${e.message}`, 'err');
-    console.error(e);
+    log(`❌ Error: ${e.message}`, 'err');
     btn.disabled = false;
     btn.textContent = '🔄 Dobara Try Karo';
   }
@@ -332,3 +342,5 @@ window.startSeed = async function() {
 </script>
 </body>
 </html>
+
+
