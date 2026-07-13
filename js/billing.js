@@ -1,3 +1,4 @@
+
 // ============================================================
 // admin/js/billing.js — Cart-based POS billing
 // ============================================================
@@ -348,7 +349,7 @@ window.cbWhatsAppReceipt = function() {
   if (!cbLastBill) return;
   const b  = cbLastBill;
   const sh = JSON.parse(localStorage.getItem(LS.shop) || '{}');
-  const appLink = 'https://thekathirollhub.vishtechfixes.com';
+  const appLink = 'https://neels.vishtechfixes.com';
   const lines = b.items.map(i =>
     `${i.name}${i.variant?' ('+i.variant+')':''} x${i.qty} = ₹${i.price*i.qty}`
   ).join('\n');
@@ -504,5 +505,24 @@ window.closeQrScanner = function() {
   const modal = document.getElementById('qr-scan-modal');
   if (modal) modal.classList.remove('open');
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
