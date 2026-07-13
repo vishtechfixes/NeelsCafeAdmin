@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<title>Neel's Cafe — Menu Seed</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+  .wrap { max-width: 700px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 800; color: #E8A020; margin-bottom: 4px; }
+  .sub { font-size: 13px; color: #64748b; margin-bottom: 24px; }
+  .card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card h3 { font-size: 14px; font-weight: 700; color: #E8A020; margin-bottom: 12px; }
+  .item-row {
+    display: flex; justify-content: space-between;
+    align-items: center; padding: 6px 0;
+    border-bottom: 1px solid #1e293b;
+    font-size: 13px;
+  }
+  .item-name { color: #e2e8f0; }
+  .item-price { color: #94a3b8; }
+  .btn {
+    width: 100%; padding: 16px;
+    background: linear-gradient(135deg, #E8A020, #C07A10);
+    color: #fff; font-size: 16px; font-weight: 800;
+    border: none; border-radius: 12px;
+    cursor: pointer; margin-top: 8px;
+    transition: opacity .2s;
+  }
+  .btn:hover { opacity: .9; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .log {
+    background: #0f172a; border: 1px solid #334155;
+    border-radius: 10px; padding: 14px;
+    font-size: 12px; font-family: monospace;
+    max-height: 300px; overflow-y: auto;
+    margin-top: 16px; display: none;
+  }
+  .log-line { margin-bottom: 4px; }
+  .log-line.ok  { color: #22c55e; }
+  .log-line.err { color: #ef4444; }
+  .log-line.inf { color: #94a3b8; }
+  .stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px; margin-bottom: 20px;
+  }
+  .stat-card {
+    background: #1e293b; border: 1px solid #334155;
+    border-radius: 10px; padding: 14px; text-align: center;
+  }
+  .stat-num { font-size: 28px; font-weight: 800; color: #E8A020; }
+  .stat-lbl { font-size: 11px; color: #64748b; margin-top: 2px; }
+  .done-banner {
+    background: #052e16; border: 1px solid #16a34a;
+    border-radius: 12px; padding: 16px; text-align: center;
+    display: none; margin-top: 16px;
+  }
+  .done-banner h2 { color: #22c55e; font-size: 18px; margin-bottom: 6px; }
+  .done-banner p  { color: #86efac; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>👨‍🍳 Neel's Cafe — Menu Seed</h1>
+  <p class="sub">Ek click mein poora menu Firebase mein add ho jaayega</p>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-num" id="total-count">58</div>
+      <div class="stat-lbl">Total Items</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="cat-count">15</div>
+      <div class="stat-lbl">Categories</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="done-count">0</div>
+      <div class="stat-lbl">Added</div>
+    </div>
+  </div>
+
+  <!-- Preview cards -->
+  <div id="preview"></div>
+
+  <!-- Seed button -->
+  <button class="btn" id="seed-btn" onclick="startSeed()">
+    🚀 Menu Firebase Mein Add Karo
+  </button>
+
+  <!-- Log -->
+  <div class="log" id="log"></div>
+
+  <!-- Done -->
+  <div class="done-banner" id="done-banner">
+    <h2>✅ Menu Add Ho Gaya!</h2>
+    <p>Saare items Firebase mein save ho gaye.<br/>
+    Ab Admin Panel → Menu mein dekho.</p>
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp, getApps, getApp }
+  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {
+  getFirestore, collection, doc, setDoc, getDocs, deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const FIREBASE_CONFIG = {
+  apiKey:            "AIzaSyCIsYsizR3Cv_xXrHFyhW2dP0J_SwR91Pc",
+  authDomain:        "neels-cafe.firebaseapp.com",
+  projectId:         "neels-cafe",
+  storageBucket:     "neels-cafe.firebasestorage.app",
+  messagingSenderId: "327739901498",
+  appId:             "1:327739901498:web:0dd6e83a8ea29c8a31d703"
+};
+
+const app = getApps().length ? getApp() : initializeApp(FIREBASE_CONFIG);
+const db  = getFirestore(app);
+
+// ── FULL MENU FROM IMAGES ──────────────────────────────────
+const MENU = [
+  // ICE CREAM
+  { name:"Vanilla Ice Cream",       category:"Ice Cream",  price:30,  veg:true },
+  { name:"Strawberry Ice Cream",    category:"Ice Cream",  price:30,  veg:true },
+  { name:"Butterscotch Ice Cream",  category:"Ice Cream",  price:40,  veg:true },
+  { name:"Chocolate Ice Cream",     category:"Ice Cream",  price:40,  veg:true },
+  { name:"Mango Ice Cream",         category:"Ice Cream",  price:40,  veg:true },
+  { name:"Pineapple Ice Cream",     category:"Ice Cream",  price:40,  veg:true },
+  { name:"Kesar Pista Ice Cream",   category:"Ice Cream",  price:40,  veg:true },
+  { name:"Raj Bhog Ice Cream",      category:"Ice Cream",  price:50,  veg:true },
+
+  // PATTIES
+  { name:"Aloo Patties",            category:"Patties",    price:30,  veg:true },
+  { name:"Mayonnaise Patties",      category:"Patties",    price:40,  veg:true },
+  { name:"Cheese Patties",          category:"Patties",    price:50,  veg:true },
+  { name:"Tandoori Patties",        category:"Patties",    price:50,  veg:true },
+  { name:"Paneer Patties",          category:"Patties",    price:40,  veg:true },
+  { name:"Paneer Masala Patties",   category:"Patties",    price:50,  veg:true },
+  { name:"Paneer Cheese Patties",   category:"Patties",    price:70,  veg:true },
+
+  // CHAAT ITEMS
+  { name:"Bhel Puri",               category:"Chaat Items",price:50,  veg:true },
+  { name:"Sev Puri",                category:"Chaat Items",price:70,  veg:true },
+  { name:"Papdi Chaat",             category:"Chaat Items",price:70,  veg:true },
+  { name:"Raj Kachori",             category:"Chaat Items",price:80,  veg:true },
+
+  // PASTA
+  { name:"Red Pasta",               category:"Pasta",      price:100, veg:true },
+  { name:"White Pasta",             category:"Pasta",      price:120, veg:true },
+  { name:"Mix Pasta",               category:"Pasta",      price:140, veg:true },
+
+  // HOT DRINKS
+  { name:"Chai",                    category:"Hot Drinks", price:20,  veg:true },
+  { name:"Special Chai",            category:"Hot Drinks", price:25,  veg:true },
+  { name:"Kulhad Chai",             category:"Hot Drinks", price:30,  veg:true },
+  { name:"Hot Coffee",              category:"Hot Drinks", price:50,  veg:true },
+
+  // PIZZA
+  { name:"OTC Pizza",               category:"Pizza",      price:120, veg:true },
+  { name:"Cheese Pizza",            category:"Pizza",      price:150, veg:true },
+  { name:"Double Cheese Pizza",     category:"Pizza",      price:200, veg:true },
+  { name:"Paneer Stuff Pizza",      category:"Pizza",      price:250, veg:true },
+  { name:"Onion Corn Pizza",        category:"Pizza",      price:270, veg:true },
+
+  // BURGER
+  { name:"Aloo Tikki Burger",       category:"Burger",     price:50,  veg:true },
+  { name:"Veg Burger",              category:"Burger",     price:60,  veg:true },
+  { name:"Cheese Burger",           category:"Burger",     price:70,  veg:true },
+  { name:"Tandoori Burger",         category:"Burger",     price:70,  veg:true },
+  { name:"Paneer Burger",           category:"Burger",     price:80,  veg:true },
+
+  // SANDWICH
+  { name:"Veg Grill Sandwich",      category:"Sandwich",   price:50,  veg:true },
+  { name:"Mayonnaise Grill",        category:"Sandwich",   price:60,  veg:true },
+  { name:"Cheese Grill",            category:"Sandwich",   price:70,  veg:true },
+  { name:"Tandoori Grill",          category:"Sandwich",   price:80,  veg:true },
+  { name:"Paneer Grill",            category:"Sandwich",   price:80,  veg:true },
+  { name:"Jumbo Cheese Grill",      category:"Sandwich",   price:100, veg:true },
+
+  // MOMOS
+  { name:"Steam Momos",             category:"Momos",      price:60,  veg:true },
+  { name:"Fried Momos",             category:"Momos",      price:70,  veg:true },
+
+  // MEGGIE
+  { name:"Veg Maggi",               category:"Meggie",     price:70,  veg:true },
+  { name:"Masala Maggi",            category:"Meggie",     price:80,  veg:true },
+  { name:"Tandoori Maggi",          category:"Meggie",     price:80,  veg:true },
+  { name:"Cheese Maggi",            category:"Meggie",     price:100, veg:true },
+  { name:"Paneer Maggi",            category:"Meggie",     price:100, veg:true },
+
+  // SHAKE
+  { name:"Papaya Shake",            category:"Shake",      price:70,  veg:true },
+  { name:"Banana Shake",            category:"Shake",      price:60,  veg:true },
+  { name:"Vanilla Shake",           category:"Shake",      price:80,  veg:true },
+  { name:"Strawberry Shake",        category:"Shake",      price:80,  veg:true },
+  { name:"Pineapple Shake",         category:"Shake",      price:80,  veg:true },
+  { name:"Mango Shake",             category:"Shake",      price:80,  veg:true },
+  { name:"Butterscotch Shake",      category:"Shake",      price:80,  veg:true },
+  { name:"Chocolate Shake",         category:"Shake",      price:100, veg:true },
+  { name:"Kesar Pista Shake",       category:"Shake",      price:100, veg:true },
+  { name:"Badam Shake",             category:"Shake",      price:100, veg:true },
+  { name:"Oreo Shake",              category:"Shake",      price:100, veg:true },
+  { name:"Kitkat Shake",            category:"Shake",      price:100, veg:true },
+
+  // COFFEE
+  { name:"Cold Coffee",             category:"Coffee",     price:80,  veg:true },
+  { name:"Spl Cold Coffee (Chocos)",category:"Coffee",     price:120, veg:true },
+
+  // FAST FOOD
+  { name:"Paneer Hot Dog",          category:"Fast Food",  price:70,  veg:true },
+  { name:"French Fries",            category:"Fast Food",  price:80,  veg:true },
+  { name:"French Fries Peri Peri",  category:"Fast Food",  price:90,  veg:true },
+  { name:"Pav Bhaji",               category:"Fast Food",  price:100, veg:true },
+  { name:"Veg Roll",                category:"Fast Food",  price:70,  veg:true },
+
+  // CAKE
+  { name:"Cake",                    category:"Cake",       price:350, veg:true },
+  { name:"Pastry Dark Chocolate",   category:"Cake",       price:70,  veg:true },
+  { name:"Cream Roll",              category:"Cake",       price:30,  veg:true },
+
+  // COMBOS
+  { name:"2 Cheese Burger + 2 Cold Coffee",   category:"Combos", price:280, veg:true },
+  { name:"1 Cheese Pizza + 1 Cold Coffee",    category:"Combos", price:200, veg:true },
+  { name:"2 Cheese Grill + 2 Cold Coffee",    category:"Combos", price:280, veg:true },
+  { name:"1 Double Cheese Pizza + 1 Cold Coffee", category:"Combos", price:280, veg:true },
+  { name:"Family: 2 Cheese Pizza + 4 Cold Coffee", category:"Combos", price:550, veg:true },
+  { name:"Family: 4 Cheese Grill + 4 Cold Coffee", category:"Combos", price:550, veg:true },
+  { name:"Birthday Special Combo",            category:"Combos", price:1000, veg:true },
+];
+
+// ── Render preview ─────────────────────────────────────────
+const cats = {};
+MENU.forEach(item => {
+  if (!cats[item.category]) cats[item.category] = [];
+  cats[item.category].push(item);
+});
+
+document.getElementById('total-count').textContent = MENU.length;
+document.getElementById('cat-count').textContent   = Object.keys(cats).length;
+
+const preview = document.getElementById('preview');
+Object.entries(cats).forEach(([cat, items]) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `<h3>${cat} (${items.length} items)</h3>` +
+    items.map(it =>
+      `<div class="item-row">
+        <span class="item-name">${it.veg ? '🟢' : '🔴'} ${it.name}</span>
+        <span class="item-price">₹${it.price}</span>
+      </div>`
+    ).join('');
+  preview.appendChild(card);
+});
+
+// ── Seed function ──────────────────────────────────────────
+let doneCount = 0;
+
+function addLog(msg, type='inf') {
+  const log = document.getElementById('log');
+  log.style.display = 'block';
+  const line = document.createElement('div');
+  line.className = `log-line ${type}`;
+  line.textContent = msg;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+window.startSeed = async function() {
+  const btn = document.getElementById('seed-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Adding...';
+  doneCount = 0;
+
+  addLog('Starting menu seed...', 'inf');
+
+  try {
+    // Delete existing menu first
+    addLog('Purana menu clear kar raha hoon...', 'inf');
+    const existing = await getDocs(collection(db, 'menu'));
+    for (const d of existing.docs) {
+      await deleteDoc(d.ref);
+    }
+    addLog(`${existing.size} purane items delete kiye`, 'inf');
+
+    // Add all items
+    for (const item of MENU) {
+      const id = item.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+
+      await setDoc(doc(db, 'menu', id), {
+        name:      item.name,
+        category:  item.category,
+        price:     item.price,
+        veg:       item.veg,
+        available: true,
+        addedAt:   new Date().toISOString(),
+      });
+
+      doneCount++;
+      document.getElementById('done-count').textContent = doneCount;
+      addLog(`✅ ${item.name} — ₹${item.price}`, 'ok');
+    }
+
+    addLog(`\n🎉 Done! ${doneCount} items added!`, 'ok');
+    document.getElementById('done-banner').style.display = 'block';
+    btn.textContent = '✅ Menu Add Ho Gaya!';
+
+  } catch(e) {
+    addLog(`❌ Error: ${e.message}`, 'err');
+    console.error(e);
+    btn.disabled = false;
+    btn.textContent = '🔄 Dobara Try Karo';
+  }
+};
+</script>
+</body>
+</html>
