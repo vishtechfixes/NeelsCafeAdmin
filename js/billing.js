@@ -349,7 +349,7 @@ window.cbWhatsAppReceipt = function() {
   if (!cbLastBill) return;
   const b  = cbLastBill;
   const sh = JSON.parse(localStorage.getItem(LS.shop) || '{}');
-  const appLink = 'https://neels.vishtechfixes.com';
+  const appLink = 'https://neelscafe-customers.vishtechfixes.com/';
   const lines = b.items.map(i =>
     `${i.name}${i.variant?' ('+i.variant+')':''} x${i.qty} = ₹${i.price*i.qty}`
   ).join('\n');
